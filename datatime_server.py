@@ -1,8 +1,10 @@
 import socket
 from ctypes import *
-
-lib = cdll.LoadLibrary('./DLL2.dll')  
-
+try:  
+    lib = cdll.LoadLibrary('./rdtsc.so')  
+except:  
+    print("error for load lib")
+    exit
 BUFSIZE = 1024
 ip_port = ('0.0.0.0', 9999)
 server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
