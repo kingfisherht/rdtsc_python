@@ -4,25 +4,29 @@ from datetime import datetime
 schedule = sched.scheduler(time.time, time.sleep)
 
 def timetostamp(stamp):
-    timeStamp = float(stamp/1000) 
+    timeStamp = float(stamp/1000000) 
     timeArray = time.localtime(timeStamp) 
     otherStyleTime = time.strftime("%Y-%m-%d %H:%M:%S", timeArray)
-    print(otherStyleTime)
+    #print(otherStyleTime)
 
-def printTime(inc,start):
-    expect = start + 4
-    timetostamp(start)
-    data = datetime.now()
-    print ("data:",data)
-    diff = int(time.mktime(data.timetuple()) * 1000.0 + data.microsecond / 1000.0) - expect
-    #print(diff)
-    schedule.enter(inc, 0, printTime, (inc,expect))
-
-def begin_time(inc,start):
-    schedule.enter(0, 0, printTime, (inc,start))
-    schedule.run()
+def printTime(inc,start_ms,start_s):
+    expect = start_ms + 4
+    #timetostamp(start)
+    data_now = datetime.now()
+    data_s = int(time.mktime(data_now.timetuple()))
+    data_ms = data_now.microsecond
+    s_diff = data_s - start_s
+    ms_diff = data_ms - expect
+    print("data_ms:",data_ms)
+    print("expect:",expect)
+    print("s_diff:",s_diff)
+    print("ms_diff:",ms_diff)
+    print(" ")
+    schedule.enter(inc, 0, printTime, (inc,expect,start_s))
 
 if __name__ == "__main__":
-    start = datetime.now()
-    start_ms = int(time.mktime(start.timetuple()) * 1000.0 + start.microsecond / 1000.0)
-    begin_time(0.04,start_ms)
+    start_time = datetime.now()
+    start_ms = start_time.microsecond
+    start_s = int(time.mktime(start_time.timetuple()))
+    schedule.enter(0, 0, printTime, (0.04,start_ms,start_s))
+    schedule.run()
