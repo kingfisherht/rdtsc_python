@@ -46,10 +46,10 @@ while True:
     else:
         count +=1
 
-    print ("max latency : {:0.3f}ms".format(max_latency))
-    print ("UDP | 0ms~4ms | 4ms~8ms |8ms~16ms |16ms~32ms | 32ms~64ms | 64ms~128ms | 64ms~128ms | 128ms~256ms | > 256ms |")
-    print ("CONT|   {0}     |   {1}     |   {2}     |   {3}      |   {4}       |    {5}       |    {6}       |        {7}    |".format(
+   # print ("\r"+"max latency : {:0.3f}ms".format(max_latency),end = "",flush=True)
+    #print ("\r"+"UDP | 0ms~4ms | 4ms~8ms |8ms~16ms |16ms~32ms | 32ms~64ms | 64ms~128ms | 64ms~128ms | 128ms~256ms | > 256ms |",end = "",flush=True)
+    print("\r"+"CONT|   {0}     |   {1}     |   {2}     |   {3}      |   {4}       |    {5}       |    {6}       |        {7}    |".format(
         count_t4,count_t8,count_t16,count_t32,count_t64,count_t128,count_t256,count
-    ))
+    ),end = "",flush=True)
 
-    time.sleep(0.01)
+    time.sleep(0.1)
